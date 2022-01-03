@@ -2,6 +2,7 @@ version: '3'
 services:
   mongo1:
     image: "mongo"
+    container_name: mongo1
     ports:
       - "27020:27017"
     volumes:
@@ -11,6 +12,7 @@ services:
     command: mongod --replSet replication
   mongo2:
     image: "mongo"
+    container_name: mongo2
     ports:
       - "27021:27017"
     volumes:
@@ -22,6 +24,7 @@ services:
       - mongo1
   mongo3:
     image: "mongo"
+    container_name: mongo3
     ports:
       - "27022:27017"
     volumes:
@@ -32,7 +35,8 @@ services:
     depends_on:
       - mongo2
   mongosetup:
-    image: "setup-rspl-mongo"
+    build: ./setup-image
+    image: setup-rspl-mongo:lastest
     depends_on:
       - mongo1
     networks:

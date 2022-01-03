@@ -106,6 +106,7 @@ services:
       - irqa-network
 
   mongosetup:
+    build: ./mongodb/setup-image
     image: "setup-rspl-mongo:latest"
     depends_on:
       - mongodb1
