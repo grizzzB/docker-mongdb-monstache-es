@@ -11,6 +11,11 @@ kibana                                          7.3.1            b54865ba6b0b   
 elasticsearch                                   7.3.1            3d3aa92f641f   2 years ago     807MB
 ```
 
+mongodb replica 설정을 해야만 monstache 연동이 가능하여 replica 설정해서 띄워주는 setup-rspl-mongo 도커를 만들고 컨테이너를 띄움.
+mongo1~3 까지 컨테이너 뜨고 setup 컨테이너에서 레플리카 구성해줌.
+
+
+
 monstache 연동 성공 메세지 예시
   
 ```
