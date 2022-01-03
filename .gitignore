@@ -1,8 +1,18 @@
 
+.idea
+.DS_Store
 
-mongodb/db1/
-mongodb/db2/
-mongodb/db3/
+mongodb/db1/*
+mongodb/db2/*
+mongodb/db3/*
+
+!elasticsearch/data/.gitkeep
+!mongodb/db1/.gitkeep
+!mongodb/db2/.gitkeep
+!mongodb/db3/.gitkeep
+
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
