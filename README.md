@@ -1,6 +1,5 @@
-# irqa-web-practice
+# Docker-compose로 mongodb, monstache, ES 환경구성
 
-### Docker-compose로 mongodb, monstache, ES 환경구성
 각각 도커 버전
 ```
 setup-rspl-mongo                                latest           515179566144   3 hours ago     693MB
