@@ -1,0 +1,30 @@
+mongo-url = "mongodb://mongo1:27017,mongo2:27017,mongo3:27017/test?replicaSet=replication"
+elasticsearch-urls = ["http://elasticsearch:9200"]
+elasticsearch-max-conns = 4
+elasticsearch-max-seconds = 5
+elasticsearch-max-bytes = 8000000
+dropped-collections = false
+dropped-databases = false
+
+direct-read-namespaces = ["docs.wiki","docs.namu","qas.userqa"]
+
+# in Elasticsearch with a newer version. Elasticsearch is preventing the old docs from overwriting new ones.
+replay = false
+# resume processing from a timestamp saved in a previous run
+resume = false
+# do not validate that progress timestamps have been saved
+resume-write-unsafe = true
+# override the name under which resume state is saved
+resume-name = "default"
+
+# turn on indexing of GridFS file content
+index-files = true
+# turn on search result highlighting of GridFS content
+file-highlighting = true
+
+# print detailed information including request traces
+verbose = true
+
+[[mapping]]
+namespace="docs.wiki"
+index="docs_wiki"

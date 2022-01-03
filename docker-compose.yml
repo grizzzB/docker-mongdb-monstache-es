@@ -1,0 +1,116 @@
+version: '3'
+
+services:
+  elasticsearch:
+    restart: always
+    image: elasticsearch:7.3.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms2048m -Xmx2048m" # ram memory
+      discovery.type: single-node # for test
+
+    healthcheck:
+      test: "wget -q -O - http://localhost:9200/_cat/health"
+      interval: 1s
+      timeout: 30s
+      retries: 300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - irqa-network
+
+  kibana:
+    restart: always
+    image: kibana:7.3.1
+    expose:
+      - 5601
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    environment:
+      - SERVER_PORT=5601
+      - SERVER_NAME=kibana.example.org
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - irqa-network
+
+  monstache:
+    restart: always
+    image: rwynn/monstache:latest
+    command: -f ./monstache.config.toml &
+    volumes:
+      - ./config/monstache.config.toml:/monstache.config.toml
+    depends_on:
+      - elasticsearch
+      - mongodb1
+      - mongodb2
+      - mongodb3
+    links:
+      - elasticsearch
+    ports:
+      - "8080:8080"
+    networks:
+      - irqa-network
+
+  mongodb1:
+    restart: always
+    image: mongo
+    container_name: mongo1
+    expose:
+      - "27017"
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./mongodb/db1:/data/db
+    command: mongod --replSet replication
+    networks:
+      - irqa-network
+
+  mongodb2:
+    restart: always
+    image: mongo
+    container_name: mongo2
+    expose:
+      - "27017"
+    ports:
+      - "27019:27017"
+    volumes:
+      - ./mongodb/db2:/data/db
+    command: mongod --replSet replication
+    depends_on:
+      - mongodb1
+    networks:
+      - irqa-network
+
+  mongodb3:
+    restart: always
+    image: mongo
+    container_name: mongo3
+    expose:
+      - "27017"
+    ports:
+      - "27020:27017"
+    volumes:
+      - ./mongodb/db3:/data/db
+    command: mongod --replSet replication
+    depends_on:
+      - mongodb1
+    networks:
+      - irqa-network
+
+  mongosetup:
+    image: "setup-rspl-mongo:latest"
+    depends_on:
+      - mongodb1
+    networks:
+      - irqa-network
+
+networks:
+  irqa-network:
