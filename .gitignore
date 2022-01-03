@@ -1,3 +1,9 @@
+
+
+mongodb/db1/*
+mongodb/db2/*
+mongodb/db3/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
