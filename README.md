@@ -6,7 +6,6 @@ setup-rspl-mongo                                latest           515179566144   
 mongo                                           latest           dfda7a2cf273   3 weeks ago     693MB
 rwynn/monstache                                 latest           e4563f0bd7f5   4 weeks ago     33.9MB
 mongo                                           <none>           4253856b2570   6 weeks ago     701MB
-mariadb                                         latest           e2278f24ac88   7 weeks ago     410MB
 kibana                                          7.3.1            b54865ba6b0b   2 years ago     1.01GB
 elasticsearch                                   7.3.1            3d3aa92f641f   2 years ago     807MB
 ```
